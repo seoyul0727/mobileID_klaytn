@@ -1,21 +1,46 @@
-const webpack = require('webpack')
-const path = require('path')
-const fs = require('fs')
+const webpack = require("webpack");
+const path = require("path");
+const fs = require("fs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  mode: "production",
+
   entry: "./src/index.js",
-  mode: 'development',
+
   output: {
     filename: "index.js",
-    path: path.resolve(__dirname, 'dist')   
+    path: path.resolve(__dirname, "dist"),
+    clean: true
   },
-  plugins: [   
+
+  plugins: [
     new webpack.DefinePlugin({
-      DEPLOYED_ADDRESS: JSON.stringify(fs.readFileSync('deployedAddress', 'utf8').replace(/\n|\r/g, "")),
-      DEPLOYED_ABI: fs.existsSync('deployedABI') && fs.readFileSync('deployedABI', 'utf8'),
+      DEPLOYED_ADDRESS: JSON.stringify(
+        fs.readFileSync("deployedAddress", "utf8").trim()
+      ),
+      DEPLOYED_ABI:
+        fs.existsSync("deployedABI") &&
+        fs.readFileSync("deployedABI", "utf8")
     }),
-    new CopyWebpackPlugin([{ from: "./src/index.html", to: "index.html"}])
+
+    new CopyWebpackPlugin([
+      {
+        from: "./src/index.html",
+        to: "index.html"
+      },
+      {
+        from: "./src/css",
+        to: "css"
+      }
+    ])
   ],
-  devServer: { contentBase: path.join(__dirname, "dist"), compress: true }
-}
+
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "dist")
+    },
+    compress: true,
+    port: 8080
+  }
+};
