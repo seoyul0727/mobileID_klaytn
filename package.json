@@ -1,7 +1,7 @@
 {
-  "name": "package.json",
+  "name": "mobileid_klaytn",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mobile ID Klaytn",
   "main": "index.js",
   "dependencies": {
     "caver-js": "^1.5.2-rc.2",
@@ -21,9 +21,9 @@
     "webpack-dev-server": "^3.1.4"
   },
   "scripts": {
-    "build": "webpack -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server"
+    "build": "webpack",
+    "dev": "webpack-dev-server",
+    "test": "echo \"No test\""
   },
   "eslintConfig": {
     "env": {
